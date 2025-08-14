@@ -1,0 +1,217 @@
+<div class="p-8">
+  <div class="mb-6">
+    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Interactive Demo</h2>
+    <p class="text-gray-600 dark:text-gray-300">Test interactive HTML components within the secure environment.</p>
+  </div>
+  
+  <!-- Interactive elements -->
+  <div class="grid md:grid-cols-2 gap-8 mb-8">
+    <div class="bg-white dark:bg-slate-700 p-6 rounded-lg border border-gray-200 dark:border-gray-600 shadow-lg">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Sample Interactive Form</h3>
+      <form onsubmit="event.preventDefault(); showFormResult();">
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Name</label>
+          <input type="text" id="userName" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your name">
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email</label>
+          <input type="email" id="userEmail" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter your email">
+        </div>
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Favorite Theme</label>
+          <select id="themeChoice" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+            <option value="light">☀️ Light</option>
+            <option value="dark">🌙 Dark</option>
+            <option value="ocean">🌊 Ocean</option>
+            <option value="sunset">🌅 Sunset</option>
+            <option value="forest">🌲 Forest</option>
+            <option value="purple">🔮 Purple</option>
+          </select>
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+          Test Form Submission
+        </button>
+      </form>
+      <div id="formResult" class="mt-4 p-3 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 rounded-lg text-green-800 dark:text-green-300 hidden">
+        Form submitted successfully! All interactive elements are working.
+      </div>
+    </div>
+    
+    <div class="bg-white dark:bg-slate-700 p-6 rounded-lg border border-gray-200 dark:border-gray-600 shadow-lg">
+      <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Interactive Controls</h3>
+      <div class="space-y-6">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Color Theme Toggle</label>
+          <button id="colorToggle" onclick="toggleButtonColor()" class="bg-blue-600 text-white px-6 py-3 rounded-lg transition-all duration-300 hover:scale-105 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+            Click to Change Color
+          </button>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Interactive Slider</label>
+          <input type="range" id="interactiveSlider" min="0" max="100" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700" oninput="updateSliderValue(this.value)">
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Value: <span id="sliderValue" class="font-medium text-blue-600 dark:text-blue-400">50</span></p>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Progress Indicator</label>
+          <div class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+            <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-300" style="width: 50%"></div>
+          </div>
+          <button onclick="animateProgress()" class="mt-2 text-sm bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700 transition-colors">
+            Animate Progress
+          </button>
+        </div>
+        
+        <div>
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Dynamic Text Area</label>
+          <textarea id="dynamicText" class="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-800 dark:text-white resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" rows="3" placeholder="Type something and see it transform..." oninput="transformText(this.value)"></textarea>
+          <div id="transformedText" class="mt-2 p-2 bg-gray-100 dark:bg-gray-800 rounded text-sm text-gray-700 dark:text-gray-300 min-h-[2rem]"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Feature Status Cards -->
+  <div class="grid md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/50 dark:to-emerald-900/50 rounded-lg p-6">
+      <div class="flex items-center mb-2">
+        <svg class="w-6 h-6 text-green-600 dark:text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3 class="text-lg font-semibold text-green-800 dark:text-green-300">Security</h3>
+      </div>
+      <ul class="text-green-700 dark:text-green-400 space-y-1 text-sm">
+        <li>✓ URL-free navigation</li>
+        <li>✓ Content sandboxing</li>
+        <li>✓ Safe external resources</li>
+        <li>✓ XSS protection</li>
+      </ul>
+    </div>
+    
+    <div class="bg-gradient-to-r from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 rounded-lg p-6">
+      <div class="flex items-center mb-2">
+        <svg class="w-6 h-6 text-blue-600 dark:text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17v4a2 2 0 002 2h4M13 13h4a2 2 0 012 2v4a2 2 0 01-2 2h-4m-6-4a2 2 0 01-2-2V7a2 2 0 012-2h2m10 10l-2-2m0 0l-2-2m2 2l2-2m-2 2l-2 2"></path>
+        </svg>
+        <h3 class="text-lg font-semibold text-blue-800 dark:text-blue-300">Interactivity</h3>
+      </div>
+      <ul class="text-blue-700 dark:text-blue-400 space-y-1 text-sm">
+        <li>✓ Form processing</li>
+        <li>✓ Event handling</li>
+        <li>✓ Dynamic updates</li>
+        <li>✓ User interactions</li>
+      </ul>
+    </div>
+    
+    <div class="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 rounded-lg p-6">
+      <div class="flex items-center mb-2">
+        <svg class="w-6 h-6 text-purple-600 dark:text-purple-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17v4a2 2 0 002 2h4M13 13h4a2 2 0 012 2v4a2 2 0 01-2 2h-4m-6-4a2 2 0 01-2-2V7a2 2 0 012-2h2m10 10l-2-2m0 0l-2-2m2 2l2-2m-2 2l-2 2"></path>
+        </svg>
+        <h3 class="text-lg font-semibold text-purple-800 dark:text-purple-300">Theming</h3>
+      </div>
+      <ul class="text-purple-700 dark:text-purple-400 space-y-1 text-sm">
+        <li>✓ Multiple themes</li>
+        <li>✓ Dark mode support</li>
+        <li>✓ Theme persistence</li>
+        <li>✓ Smooth transitions</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="flex justify-between items-center">
+    <button onclick="window.parent.loadHTMLContent('media-gallery')" class="text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors">
+      <span class="mr-2">←</span>Previous: Gallery
+    </button>
+    <button onclick="window.parent.showWelcome()" class="bg-green-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-green-700 transition-colors">
+      <span class="mr-2">🏠</span>Back to Home
+    </button>
+  </div>
+</div>
+
+<script>
+function showFormResult() {
+  const name = document.getElementById('userName').value;
+  const email = document.getElementById('userEmail').value;
+  const theme = document.getElementById('themeChoice').value;
+  const resultDiv = document.getElementById('formResult');
+  
+  if (name && email) {
+    resultDiv.innerHTML = `Form submitted successfully!<br><strong>Name:</strong> ${name}<br><strong>Email:</strong> ${email}<br><strong>Theme:</strong> ${theme}`;
+    resultDiv.classList.remove('hidden');
+  } else {
+    resultDiv.innerHTML = 'Please fill in all fields.';
+    resultDiv.classList.remove('hidden');
+  }
+}
+
+function toggleButtonColor() {
+  const button = document.getElementById('colorToggle');
+  const colors = ['bg-blue-600', 'bg-green-600', 'bg-purple-600', 'bg-red-600', 'bg-yellow-600', 'bg-indigo-600'];
+  const currentColor = colors.find(color => button.classList.contains(color));
+  const currentIndex = colors.indexOf(currentColor);
+  const nextIndex = (currentIndex + 1) % colors.length;
+  
+  button.classList.remove(currentColor);
+  button.classList.add(colors[nextIndex]);
+  
+  button.textContent = `Color: ${colors[nextIndex].replace('bg-', '').replace('-600', '')}`;
+}
+
+function updateSliderValue(value) {
+  document.getElementById('sliderValue').textContent = value;
+  document.getElementById('progressBar').style.width = value + '%';
+}
+
+function animateProgress() {
+  const progressBar = document.getElementById('progressBar');
+  const slider = document.getElementById('interactiveSlider');
+  let width = 0;
+  const interval = setInterval(() => {
+    width += 2;
+    progressBar.style.width = width + '%';
+    slider.value = width;
+    document.getElementById('sliderValue').textContent = width;
+    
+    if (width >= 100) {
+      clearInterval(interval);
+      setTimeout(() => {
+        width = 0;
+        const resetInterval = setInterval(() => {
+          width += 2;
+          progressBar.style.width = (100 - width) + '%';
+          slider.value = 100 - width;
+          document.getElementById('sliderValue').textContent = 100 - width;
+          
+          if (width >= 50) {
+            clearInterval(resetInterval);
+          }
+        }, 20);
+      }, 500);
+    }
+  }, 20);
+}
+
+function transformText(text) {
+  const transformedDiv = document.getElementById('transformedText');
+  if (text.trim() === '') {
+    transformedDiv.innerHTML = '<em class="text-gray-500">Transformed text will appear here...</em>';
+    return;
+  }
+  
+  const transformations = [
+    `<strong>Uppercase:</strong> ${text.toUpperCase()}`,
+    `<strong>Reversed:</strong> ${text.split('').reverse().join('')}`,
+    `<strong>Word Count:</strong> ${text.trim().split(/\s+/).length} words`,
+    `<strong>Character Count:</strong> ${text.length} characters`
+  ];
+  
+  transformedDiv.innerHTML = transformations.join('<br>');
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('transformedText').innerHTML = '<em class="text-gray-500">Transformed text will appear here...</em>';
+});
+</script>
