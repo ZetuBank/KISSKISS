@@ -41,6 +41,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       // Update CSS custom properties
       root.setProperty('--theme-primary', theme.primary);
       root.setProperty('--theme-secondary', theme.secondary);
+      
+      // Notify iframes about theme change
+      const iframes = document.querySelectorAll('iframe');
+      iframes.forEach(iframe => {
+        if (iframe.contentWindow) {
+          iframe.contentWindow.postMessage({ type: 'themeChange' }, '*');
+        }
+      });
     }
   };
 

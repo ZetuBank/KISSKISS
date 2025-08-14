@@ -176,3 +176,62 @@
 .dark .html-content iframe {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .html-content iframe {
+    min-height: calc(100vh - 80px);
+    border-radius: 8px;
+  }
+  
+  /* Improve touch targets */
+  button, .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Better spacing on mobile */
+  .p-8 {
+    padding: 1rem !important;
+  }
+  
+  .p-6 {
+    padding: 1rem !important;
+  }
+  
+  /* Mobile-friendly cards */
+  .grid {
+    gap: 1rem !important;
+  }
+  
+  /* Ensure text is readable */
+  .text-sm {
+    font-size: 0.95rem !important;
+  }
+}
+
+/* Prevent zoom on input focus (iOS) */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select,
+textarea {
+  font-size: 16px;
+}
+
+/* Better scrolling on mobile */
+body {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Safe area for modern phones */
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(1rem, env(safe-area-inset-top));
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}

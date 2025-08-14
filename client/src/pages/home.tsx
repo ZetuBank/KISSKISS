@@ -29,6 +29,15 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    const handleCustomEvent = (event: CustomEvent) => {
+      loadHTMLContent(event.detail);
+    };
+
+    window.addEventListener('loadHTMLContent', handleCustomEvent as EventListener);
+    return () => window.removeEventListener('loadHTMLContent', handleCustomEvent as EventListener);
+  }, []);
+
   const showWelcome = () => {
     setCurrentContent(null);
   };
@@ -48,16 +57,17 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 transition-colors duration-300 safe-area-top safe-area-bottom">
       {/* Theme Controls */}
-      <div className="fixed top-6 right-6 z-40">
-        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-2 border border-gray-200 dark:border-gray-700">
+      <div className="fixed top-4 right-4 md:top-6 md:right-6 z-40 safe-area-top">
+        <div className="bg-white dark:bg-slate-800 rounded-lg md:rounded-xl shadow-lg p-2 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-2">
             <select 
               value={currentTheme.id}
               onChange={(e) => setTheme(e.target.value)}
-              className="bg-transparent text-sm font-medium text-gray-700 dark:text-gray-300 border-none outline-none cursor-pointer"
+              className="bg-transparent text-sm font-medium text-gray-700 dark:text-gray-300 border-none outline-none cursor-pointer touch-manipulation"
               data-testid="select-theme"
+              style={{ fontSize: '16px' }}
             >
               {themes.map(theme => (
                 <option key={theme.id} value={theme.id}>
@@ -70,21 +80,21 @@ export default function Home() {
       </div>
 
       {/* App Header */}
-      <header className="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-gray-700 px-6 py-4 shadow-sm">
+      <header className="bg-white dark:bg-slate-800 border-b border-gray-200 dark:border-gray-700 px-4 md:px-6 py-3 md:py-4 shadow-sm">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-[var(--theme-primary,#6366F1)] to-[var(--theme-secondary,#10B981)] rounded-lg flex items-center justify-center">
-                <Shield className="text-white w-5 h-5" />
+          <div className="flex items-center space-x-3 md:space-x-4">
+            <div className="flex items-center space-x-2 md:space-x-3">
+              <div className="w-8 h-8 md:w-10 md:h-10 bg-gradient-to-br from-[var(--theme-primary,#6366F1)] to-[var(--theme-secondary,#10B981)] rounded-lg flex items-center justify-center">
+                <Shield className="text-white w-4 h-4 md:w-5 md:h-5" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 dark:text-white">KISS</h1>
-                <p className="text-sm text-gray-500 dark:text-gray-400">Secure HTML Viewer</p>
+                <h1 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">KISS</h1>
+                <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400">Secure HTML Viewer</p>
               </div>
             </div>
           </div>
           
-          <div className="flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
               <Lock className="w-4 h-4 text-green-500" />
               <span>Secure Mode Active</span>
@@ -94,65 +104,68 @@ export default function Home() {
       </header>
 
       {/* Content Area */}
-      <main className="p-8">
+      <main className="p-4 md:p-8 pb-safe">
         <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-4xl font-bold text-gray-900 dark:text-white mb-3 md:mb-4">
               Welcome to KISS
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            <p className="text-base md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-2">
               Your secure HTML content viewer. Navigate through your content safely without exposing direct URLs or compromising security.
             </p>
           </div>
 
           {/* Demo Navigation Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-8 md:mb-12">
             <div 
-              className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow cursor-pointer"
+              className="bg-white dark:bg-slate-800 rounded-lg md:rounded-xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow cursor-pointer touch-manipulation"
               onClick={() => loadHTMLContent('sample-flipbook')}
               data-testid="card-flipbook"
+              style={{ minHeight: '44px' }}
             >
               <div className="text-center">
-                <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <BookOpen className="text-blue-600 dark:text-blue-400 w-8 h-8" />
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                  <BookOpen className="text-blue-600 dark:text-blue-400 w-6 h-6 md:w-8 md:h-8" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Interactive Flipbook</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">Experience embedded Heyzine flipbook content</p>
-                <button className="bg-[var(--theme-primary,#6366F1)] text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity">
+                <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-2">Interactive Flipbook</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 md:mb-4">Experience embedded Heyzine flipbook content</p>
+                <button className="bg-[var(--theme-primary,#6366F1)] text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity touch-manipulation" style={{ minHeight: '44px' }}>
                   View Content
                 </button>
               </div>
             </div>
 
             <div 
-              className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow cursor-pointer"
+              className="bg-white dark:bg-slate-800 rounded-lg md:rounded-xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow cursor-pointer touch-manipulation"
               onClick={() => loadHTMLContent('media-gallery')}
               data-testid="card-gallery"
+              style={{ minHeight: '44px' }}
             >
               <div className="text-center">
-                <div className="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Image className="text-green-600 dark:text-green-400 w-8 h-8" />
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                  <Image className="text-green-600 dark:text-green-400 w-6 h-6 md:w-8 md:h-8" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Media Gallery</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">View images and videos from external sources</p>
-                <button className="bg-[var(--theme-secondary,#10B981)] text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity">
+                <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-2">Media Gallery</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 md:mb-4">View images and videos from external sources</p>
+                <button className="bg-[var(--theme-secondary,#10B981)] text-white px-4 py-2 rounded-lg font-medium hover:opacity-90 transition-opacity touch-manipulation" style={{ minHeight: '44px' }}>
                   View Gallery
                 </button>
               </div>
             </div>
 
             <div 
-              className="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow cursor-pointer"
+              className="bg-white dark:bg-slate-800 rounded-lg md:rounded-xl shadow-lg p-4 md:p-6 border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow cursor-pointer touch-manipulation"
               onClick={() => loadHTMLContent('interactive-demo')}
               data-testid="card-demo"
+              style={{ minHeight: '44px' }}
             >
               <div className="text-center">
-                <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Settings className="text-purple-600 dark:text-purple-400 w-8 h-8" />
+                <div className="w-12 h-12 md:w-16 md:h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                  <Settings className="text-purple-600 dark:text-purple-400 w-6 h-6 md:w-8 md:h-8" />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Interactive Demo</h3>
-                <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">Test interactive HTML components</p>
-                <button className="bg-purple-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-purple-700 transition-colors">
+                <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white mb-2">Interactive Demo</h3>
+                <p className="text-gray-600 dark:text-gray-300 text-sm mb-3 md:mb-4">Test interactive HTML components</p>
+                <button className="bg-purple-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-purple-700 transition-colors touch-manipulation" style={{ minHeight: '44px' }}>
                   Try Demo
                 </button>
               </div>
@@ -160,8 +173,8 @@ export default function Home() {
           </div>
 
           {/* Features Grid */}
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-white dark:bg-slate-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 mb-8 md:mb-12">
+            <div className="bg-white dark:bg-slate-800 rounded-lg md:rounded-xl p-4 md:p-8 border border-gray-200 dark:border-gray-700">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">🔐 Secure Viewing</h3>
               <ul className="space-y-2 text-gray-600 dark:text-gray-300">
                 <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> No direct URL exposure</li>
@@ -171,7 +184,7 @@ export default function Home() {
               </ul>
             </div>
             
-            <div className="bg-white dark:bg-slate-800 rounded-xl p-8 border border-gray-200 dark:border-gray-700">
+            <div className="bg-white dark:bg-slate-800 rounded-lg md:rounded-xl p-4 md:p-8 border border-gray-200 dark:border-gray-700">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">🎨 Customization</h3>
               <ul className="space-y-2 text-gray-600 dark:text-gray-300">
                 <li className="flex items-center"><Check className="w-4 h-4 text-green-500 mr-2" /> Multiple theme options</li>
@@ -183,7 +196,7 @@ export default function Home() {
           </div>
 
           {/* Instructions */}
-          <div className="bg-gradient-to-r from-[var(--theme-primary,#6366F1)]/10 to-[var(--theme-secondary,#10B981)]/10 rounded-xl p-8">
+          <div className="bg-gradient-to-r from-[var(--theme-primary,#6366F1)]/10 to-[var(--theme-secondary,#10B981)]/10 rounded-lg md:rounded-xl p-4 md:p-8">
             <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">📋 How to Use</h3>
             <div className="grid md:grid-cols-2 gap-6 text-gray-700 dark:text-gray-300">
               <div>
